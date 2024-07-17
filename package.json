@@ -1,0 +1,49 @@
+{
+  "name": "tech-forum-app",
+  "version": "1.0.0",
+  "description": "Full Stack JavaScript - Final Project",
+  "main": "./src/server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShivaniSehgal07/TechForum.git"
+  },
+  "author": {
+    "name": "Rodrigo Olave Carrasco",
+    "email": "c0898267@mylambton.ca"
+  },
+  "contributors": [
+    {
+      "name": "Alishan Gurung",
+      "email": "c0907550@mylambton.ca"
+    },
+    {
+      "name": "Deneb Arc Villanueva",
+      "email": "c0872334@mylambton.ca"
+    },
+    {
+      "name": "Dumar Ruge",
+      "email": "c0869984@mylambton.ca"
+    },
+    {
+      "name": "Mazlum Unay",
+      "email": "c0885585@mylambton.ca"
+    },
+    {
+      "name": "Shivani Sehgal",
+      "email": "c0893209@mylambton.ca"
+    }
+  ],
+  "scripts": {
+    "start": "node ./src/server.js",
+    "start:dev": "nodemon ./src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

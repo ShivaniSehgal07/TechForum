@@ -1,0 +1,21 @@
+<%- include('../shared/header'); %>
+<div class="container">
+  <h1>Index page example</h1>
+  <p><%= example %></p>
+  <% if (posts.length > 0) { %>
+    <div class="row">
+      <% posts.forEach(post => { %>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= post.title %></h5>
+              <p class="card-text"><%= post.content %></p>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
+<%- include('../shared/footer'); %>
+  
