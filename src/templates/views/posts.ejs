@@ -45,9 +45,9 @@
                       <h5 class="mb-2"><%= post.title %></h5>
                       <p class="mb-0 post-body"><%= post.body %></p>
                       <div class="d-flex justify-content-between mt-4">
-                        <a href="/" class="btn custom-btn">Learn More</a>
+                        <a href="/post/<%= post.id %>" class="btn custom-btn">Learn More</a>
                         <div class="d-flex flex-wrap align-content-center">
-                          <span class="badge bg-graphic rounded-pill cursor-pointer ms-auto me-2"><i class="bi bi-pen"></i></span>
+                          <a href="/post/<%= post.id %>?edit=true" class="badge bg-graphic rounded-pill cursor-pointer ms-auto me-2"><i class="bi bi-pen"></i></a>
                           <span class="badge bg-advertising rounded-pill cursor-pointer ms-auto"><i class="bi bi-trash"></i></span>
                         </div>
                       </div>

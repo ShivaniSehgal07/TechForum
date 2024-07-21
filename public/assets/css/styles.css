@@ -667,6 +667,14 @@
   .bg-education {
     background-color: #00BFA6;
   }
+
+  .bg-cancel {
+    background-color: var(--bs-gray-500);
+  }
+
+  .bg-cancel:hover {
+    background-color: var(--bs-gray-600);
+  }
   
   
   /*---------------------------------------
@@ -732,12 +740,22 @@
     font-family: var(--body-font-family);
     color: var(--p-color);
   }
+
+  .author-post-detail {
+    margin-top: 30px;
+    margin-left: 0;
+  }
   
   .author-img {
     width: 50px;
     height: 50px;
     border-radius: var(--border-radius-small);
     margin-right: 10px;
+  }
+
+  .author-post-detail .author-img {
+    width: 60px;
+    height: 60px;
   }
   
   .author-name {
@@ -747,10 +765,20 @@
     color: var(--primary-color);
     margin-right: 10px;
   }
+
+  .author-post-detail .author-name {
+    font-size: var(--h4-font-size);
+    font-weight: var(--font-weight-semibold);
+    color: var(--white-color);
+  }
   
   .post-date {
     font-size: var(--menu-font-size);
     color: var(--secondary-color);
+  }
+
+  .author-post-detail .post-date {
+    color: var(--white-color);
   }
   
   
