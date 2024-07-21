@@ -1,8 +1,15 @@
+const addPost = (req, res) => {
+  res.render("post", {
+    title: "TechForum - Add Post",
+    post: undefined
+  });
+}
+
 const getPost = (req, res) => {
   const editMode = req.query.edit === 'true'; // Check if edit mode is enabled
 
   res.render("post", {
-    title: "TechForum",
+    title: "TechForum - View Post",
     editMode,
     post: {
       id: req.params.id,
@@ -17,5 +24,6 @@ const getPost = (req, res) => {
 };
 
 module.exports = {
+  addPost,
   getPost,
 };
