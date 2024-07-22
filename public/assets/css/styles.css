@@ -129,6 +129,10 @@
   .w-49-pt {
     width: 49%;
   }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
   
   
   /*---------------------------------------
@@ -137,6 +141,11 @@
   .section-padding {
     padding-top: 100px;
     padding-bottom: 100px;
+  }
+
+  .section-padding-sm {
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
   
   .section-bg {
@@ -274,10 +283,11 @@
     NAVIGATION              
   -----------------------------------------*/
   .sticky-wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
+    z-index: 1;
   }
   
   .sticky-wrapper.is-sticky .navbar {
@@ -292,6 +302,10 @@
 
   .navbar-brand {
     color: var(--white-color);
+  }
+
+  .navbar-brand:hover {
+    color: var(--primary-color);
   }
 
   .navbar-brand-footer {
@@ -627,9 +641,19 @@
   .bg-graphic {
     background-color: #00BFA6;
   }
+
+  .bg-graphic:hover {
+    transition: all 0.3s;
+    background-color: #05a38f;
+  }
   
   .bg-advertising {
     background-color: #F50057;
+  }
+
+  .bg-advertising:hover {
+    transition: all 0.3s;
+    background-color: #c50247;
   }
   
   .bg-finance {
@@ -642,6 +666,14 @@
   
   .bg-education {
     background-color: #00BFA6;
+  }
+
+  .bg-cancel {
+    background-color: var(--bs-gray-500);
+  }
+
+  .bg-cancel:hover {
+    background-color: var(--bs-gray-600);
   }
   
   
@@ -681,11 +713,74 @@
   
   .custom-block-topics-listing {
     height: inherit;
+    flex-direction: column;
+  }
+
+  .custom-block-topics-listing > .d-flex {
+    flex-direction: column;
   }
   
   .custom-block-topics-listing .custom-block-image {
     width: 200px;
   }
+
+  .post-body {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+  }
+
+  .author {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    font-family: var(--body-font-family);
+    color: var(--p-color);
+  }
+
+  .author-post-detail {
+    margin-top: 30px;
+    margin-left: 0;
+  }
+  
+  .author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--border-radius-small);
+    margin-right: 10px;
+  }
+
+  .author-post-detail .author-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .author-name {
+    font-family: var(--title-font-family);
+    font-size: var(--h5-font-size);
+    font-weight: var(--font-weight-medium);
+    color: var(--primary-color);
+    margin-right: 10px;
+  }
+
+  .author-post-detail .author-name {
+    font-size: var(--h4-font-size);
+    font-weight: var(--font-weight-semibold);
+    color: var(--white-color);
+  }
+  
+  .post-date {
+    font-size: var(--menu-font-size);
+    color: var(--secondary-color);
+  }
+
+  .author-post-detail .post-date {
+    color: var(--white-color);
+  }
+  
   
   
   /*---------------------------------------

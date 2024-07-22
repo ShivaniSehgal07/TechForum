@@ -1,0 +1,86 @@
+<%- include('../shared/header'); %>
+
+  <header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+
+        <div class="col-12 mb-5">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Homepage</a></li>
+              <li class="breadcrumb-item"><a href="/posts">Posts</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Post</li>
+            </ol>
+          </nav>
+
+          <h2 class="text-white">
+            <%= post ? post.title : "Add Post" %>
+          </h2>
+
+          <% if (post) { %>
+            <div class="author author-post-detail">
+              <img src="<%= post.author_profile_pic %>" alt="Author Profile Picture" class="author-img" />
+              <div>
+                <div class="author-name">
+                  <%= post.author_name %>
+                </div>
+                <div class="post-date">
+                  <%= post.date %>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+  </header>
+
+
+  <section class="topics-detail-section section-padding" id="topics-detail">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12 m-auto">
+          <!-- Add Mode -->
+          <% if (!post) { %>
+            <form action="/post" method="POST">
+              <div class="mb-4">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-4">
+                <label for="body" class="form-label">Body</label>
+                <textarea class="form-control" id="body" name="body" rows="10"></textarea>
+              </div>
+              <button type="submit" class="btn custom-btn me-2">Add Post</button>
+              <a href="/posts" class="btn custom-btn bg-cancel">Cancel</a>
+            </form>
+          <% } else if (editMode) { %>
+            <!-- Edit Mode -->
+            <form action="/post/<%= post.id %>?method=PUT" method="POST">
+              <div class="mb-4">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%= post.title %>">
+              </div>
+              <div class="mb-4">
+                <label for="body" class="form-label">Body</label>
+                <textarea class="form-control" id="body" name="body" rows="10"><%= post.body %></textarea>
+              </div>
+              <button type="submit" class="btn custom-btn me-2">Update Post</button>
+              <a href="/posts" class="btn custom-btn bg-cancel">Cancel</a>
+            </form>
+            <% } else { %>
+              <!-- View Mode -->
+              <h3 class="mb-4">
+                <%= post.title %>
+              </h3>
+              <p>
+                <%= post.body %>
+              </p>
+            <% } %>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <%- include('../shared/footer'); %>
