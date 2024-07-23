@@ -1,8 +1,8 @@
 <%- include('../shared/header'); %>
 <div class="container auth">
   <h2>Login</h2>
-  <% if (message) { %>
-    <div class="alert alert-danger"><%= message %></div>
+  <% if (alert) { %>
+    <div class="alert alert-danger"><%= alert %></div>
   <% } %>
   <form action="/auth/login" method="POST">
     <div class="form-group">
