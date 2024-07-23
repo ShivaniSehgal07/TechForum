@@ -2,7 +2,7 @@ const express = require("express");
 const userModel = require("../models");
 const passport = require("passport");
 
-const authRoutes = express.Router();
+const authRoutes = new express.Router();
 
 authRoutes.get("/auth/login", (req, res) => {
   const flashMessage = req?.flash("error") || null;
