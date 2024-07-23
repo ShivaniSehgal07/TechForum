@@ -4,7 +4,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 require("./db/mongoose");
-const { authRoutes, home, postRoutes, postsRoutes } = require("./routes");
+const { authRoutes, home, postRoutes } = require("./routes");
 
 require("./utils/passport")(passport);
 
@@ -69,7 +69,6 @@ app.use((req, res, next) => {
 
 home(app);
 app.use(postRoutes);
-app.use(postsRoutes);
 app.use(authRoutes);
 
 module.exports = app;
