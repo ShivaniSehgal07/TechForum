@@ -1,8 +1,10 @@
+const express = require("express");
 const { getPost, addPost } = require("../controllers");
 
-const postRoutes = (app) => {
-  app.get('/post', addPost);
-  app.get('/post/:id', getPost);
-};
+const postRoutes = new express.Router();
+
+// Views
+postRoutes.get('/post', addPost);
+postRoutes.get('/post/:id', getPost);
 
 module.exports = postRoutes;

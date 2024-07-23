@@ -1,17 +1,16 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-
-// Load environment variables
 dotenv.config();
 
+const DB_NAME = "techforum";
+const DB_PORT = 27017;
+const MONGODB_URL =
+  process.env.MONGODB_URI || `mongodb://127.0.0.1:${DB_PORT}/${DB_NAME}`;
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => { console.log('Connected to MongoDB') })
-    .catch((err) => console.log('Failed to connect to MongoDB', err));
+mongoose
+  .connect(MONGODB_URL)
+  .then(() => console.log("Connected to database."))
+  .catch((error) => console.log(`Error connecting to database: ${error}`));
 
-// Export mongoose
 module.exports = mongoose;
