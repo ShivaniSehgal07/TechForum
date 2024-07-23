@@ -4,8 +4,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 require("./db/mongoose");
-const { authRoutes, home, postRoutes } = require("./routes");
-const postsRoutes = require("./routes/postsRoutes");
+const { authRoutes, home, postRoutes, postsRoutes } = require("./routes");
 
 require("./utils/passport")(passport);
 
