@@ -537,7 +537,14 @@
     color: var(--white-color);
     max-width: 150px;
   }
-  
+
+  /*---------------------------------------
+    AUTH              
+  -----------------------------------------*/
+  .container.auth {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
   
   /*---------------------------------------
     TOPICS              
@@ -1003,7 +1010,7 @@
     padding-left: 20px;
   }
   
-  .custom-form button {
+  .custom-form button, .home-button {
     background: var(--custom-btn-bg-color);
     border: none;
     color: var(--white-color);
@@ -1012,12 +1019,6 @@
     font-weight: var(--font-weight-semibold);
     transition: all 0.3s;
     margin-bottom: 0;
-  }
-  
-  .custom-form button:hover,
-  .custom-form button:focus {
-    background: var(--secondary-color);
-    border-color: transparent;
   }
 
   .custom-form .light-button {
@@ -1029,6 +1030,20 @@
   .custom-form .light-button:hover,
   .custom-form .light-button:focus {
     color: var(--white-color);
+  }
+  
+  .custom-form button:hover,
+  .custom-form button:focus,
+  .home-button:hover,
+  .home-button:focus {
+    background: var(--secondary-color);
+    border-color: transparent;
+  }
+
+
+  .home-button {
+    text-align: center;
+    cursor: pointer;
   }
   
   
