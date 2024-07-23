@@ -1,5 +1,4 @@
-const { getPost, addPost } = require("./postController");
-const { getAllPosts } = require("./postsController");
+const { getPost, addPost, getAllPosts } = require("./postController");
 
 module.exports = {
   addPost,
