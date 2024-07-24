@@ -19,7 +19,7 @@
 
           <% if (post) { %>
             <div class="author author-post-detail">
-              <img src="<%= post.author_profile_pic %>" alt="Author Profile Picture" class="author-img" />
+              <img src="<%= post.author_avatar ? post.author_avatar : '/assets/images/default-avatar.png' %>" alt="<%= post.author_name %>" class="author-img" />
               <div>
                 <div class="author-name">
                   <%= post.author_name %>

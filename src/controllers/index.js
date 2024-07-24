@@ -1,5 +1,5 @@
 const { loginIndex, signupIndex, createUser, loginUser, logoutUser } = require("./authController");
-const { getPost, addPost, getAllPosts } = require("./postController");
+const { addPost, getAllPosts, getPostById } = require("./postController");
 
 module.exports = {
   loginIndex,
@@ -8,6 +8,6 @@ module.exports = {
   loginUser,
   logoutUser,
   addPost,
-  getPost,
+  getPostById,
   getAllPosts,
 }
