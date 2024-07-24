@@ -1,12 +1,13 @@
 const { APP_NAME } = require("../constants");
 const { userModel } = require("../models");
-const passport = require("../utils/passport");
-const { hashPassword } = require("../utils");
+const { hashPassword, comparePassword } = require("../utils");
 
 const loginIndex = (req, res) => {
   const title = `${APP_NAME} - Login`;
+  const alertMessages = req.flash("alert");
+  const alert = alertMessages.length > 0 ? alertMessages[0] : null;
 
-  res.render("login", { title });
+  res.render("login", { title, alert });
 };
 
 const signupIndex = (req, res) => {
@@ -38,21 +39,42 @@ const createUser = async (req, res) => {
   }
 };
 
-const loginUser = (req, res) => {
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/auth/login",
-    failureFlash: true,
-  });
+const loginUser = async (req, res) => {
+  const { email, password } = req.body || {};
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    if (user) {
+      const { password: userPassword, user_name } = user;
+
+      if (comparePassword(password, userPassword)) {
+        req.session.userId = user_name;
+        return res.redirect("/posts");
+      } else {
+        req.flash("alert", "Invalid username or password");
+        return res.redirect("/auth/login");
+      }
+    } else {
+      req.flash("alert", "User not found");
+      return res.redirect("/auth/login");
+    }
+  } catch (error) {
+    req.flash("alert", "An error occurred. Please try again.");
+    return res.redirect("/auth/login");
+  }
 };
 
 const logoutUser = (req, res) => {
-  req.logout();
-  req.flash("success_msg", "You are logged out");
-  res.redirect("/auth/login");
-};
+  req.session.destroy((error) => {
+    if (error) {
+      return res.redirect("/");
+    }
 
-// const authenticateUser =
+    req.flash("alert", "You are logged out");
+    res.redirect("/auth/login");
+  });
+};
 
 module.exports = {
   loginIndex,
