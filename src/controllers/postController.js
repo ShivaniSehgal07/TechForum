@@ -1,12 +1,16 @@
+const { APP_NAME } = require("../constants");
+const { postModel } = require("../models");
+const { formatDate } = require("../utils");
+
 const addPost = (req, res) => {
   res.render("post", {
     title: "TechForum - Add Post",
-    post: undefined
+    post: undefined,
   });
-}
+};
 
 const getPost = (req, res) => {
-  const editMode = req.query.edit === 'true'; // Check if edit mode is enabled
+  const editMode = req.query.edit === "true"; // Check if edit mode is enabled
 
   res.render("post", {
     title: "TechForum - View Post",
@@ -16,65 +20,56 @@ const getPost = (req, res) => {
       title: "Understanding JavaScript Closures",
       author_name: "Jane Doe",
       author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-      body:
-        "A closure is the combination of a function and the lexical environment within which that function was declared.",
+      body: "A closure is the combination of a function and the lexical environment within which that function was declared.",
       date: "2024-07-15",
     },
   });
 };
 
-const getAllPosts = (req, res) => {
-  res.render("posts", {
-    title: "TechForum",
-    example: "This is an example",
-    posts: [
+const getAllPosts = async (req, res) => {
+  const title = `${APP_NAME}`;
+
+  try {
+    const posts = await postModel.aggregate([
       {
-        id: 1,
-        title: "Understanding JavaScript Closures",
-        author_name: "Jane Doe",
-        author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-        body:
-          "A closure is the combination of a function and the lexical environment within which that function was declared.",
-        date: "2024-07-15",
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "user_name",
+          as: "authorData",
+        },
       },
       {
-        id: 2,
-        title: "Getting Started with React Hooks",
-        author_name: "John Smith",
-        author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-        body:
-          "React Hooks are functions that let you use state and other React features without writing a class.",
-        date: "2024-07-10",
+        $unwind: "$authorData",
       },
       {
-        id: 3,
-        title: "A Guide to Node.js Performance Optimization",
-        author_name: "Alice Johnson",
-        author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-        body:
-          "Node.js performance optimization involves profiling your application, identifying bottlenecks, and implementing best practices to improve performance.",
-        date: "2024-07-08",
+        $project: {
+          title: 1,
+          body: 1,
+          date: 1,
+          category: 1,
+          author: 1,
+          author_name: {
+            $concat: ["$authorData.first_name", " ", "$authorData.last_name"],
+          },
+          author_avatar: "$authorData.avatar",
+        },
       },
-      {
-        id: 4,
-        title: "Mastering CSS Grid Layout",
-        author_name: "Bob Lee",
-        author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-        body:
-          "CSS Grid Layout is a two-dimensional layout system for the web. It lets you layout items in rows and columns.",
-        date: "2024-07-05",
-      },
-      {
-        id: 5,
-        title: "Introduction to TypeScript",
-        author_name: "Charlie Brown",
-        author_profile_pic: "/assets/images/emerging-tech-vector.jpg",
-        body:
-          "TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.",
-        date: "2024-07-01",
-      },
-    ],
-  });
+    ]);
+    const formattedPosts = posts.map((post) => ({
+      ...post,
+      date: formatDate(new Date(post.date)),
+    }));
+    res.render("posts", {
+      title,
+      posts: formattedPosts,
+    });
+  } catch (error) {
+    res.render("posts", {
+      title,
+      posts: [],
+    });
+  }
 };
 
 module.exports = {

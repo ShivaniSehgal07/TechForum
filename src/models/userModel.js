@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema(
     },
     password: { type: String, required: true, trim: true },
     avatar: { type: Buffer, required: false },
-    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
   },
   { timestamps: true }
 );
