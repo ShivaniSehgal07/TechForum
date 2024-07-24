@@ -1,3 +1,0 @@
-const createUser = (req, res) => {
-  
-};

@@ -5,10 +5,8 @@ const { hashPassword } = require("../utils");
 
 const loginIndex = (req, res) => {
   const title = `${APP_NAME} - Login`;
-  const flashMessage = req?.flash("error") || null;
 
-  const alert = req.flash("alert");
-  res.render("login", { title, alert });
+  res.render("login", { title });
 };
 
 const signupIndex = (req, res) => {
@@ -32,7 +30,7 @@ const createUser = async (req, res) => {
     });
 
     await user.save();
-    req.flash("alert", "User %s successfully signed up.", user_name);
+    req.flash("alert", `User ${user_name} successfully signed up.`);
     res.redirect("/auth/login");
   } catch (error) {
     req.flash("alert", error.message);
