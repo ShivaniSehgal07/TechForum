@@ -21,6 +21,7 @@
 
   <section class="section-padding section-padding-sm">
     <div class="container">
+      <div class="section-alerts"></div>
       <div class="d-flex justify-content-end mb-3">
         <a href="/add-post" class="btn custom-btn bg-graphic">
           <i class="bi bi-plus-lg font-weight-semibold"></i> Add Post
@@ -51,7 +52,9 @@
                         <a href="/post/<%= post._id %>" class="btn custom-btn">Learn More</a>
                         <div class="d-flex flex-wrap align-content-center">
                           <a href="/edit-post/<%= post._id %>" class="badge bg-graphic rounded-pill cursor-pointer ms-auto me-2"><i class="bi bi-pen"></i></a>
-                          <span class="badge bg-advertising rounded-pill cursor-pointer ms-auto"><i class="bi bi-trash"></i></span>
+                          <button class="delete-post-button badge bg-advertising rounded-pill cursor-pointer ms-auto" type="button" data-id="<%= post._id %>">
+                            <i class="bi bi-trash"></i>
+                          </button>
                         </div>
                       </div>
                     </div>

@@ -7,6 +7,7 @@ const {
   getAllUserPosts,
   editPostIndex,
   editPostById,
+  deletePostById,
 } = require("../controllers");
 const { checkAuthMiddleware } = require("../middlewares");
 
@@ -21,5 +22,6 @@ postRoutes.get("/post/:id", getPostById);
 postRoutes.get("/edit-post/:id", checkAuthMiddleware, editPostIndex);
 postRoutes.post("/edit-post", editPostById);
 postRoutes.get("/post", checkAuthMiddleware, addPost);
+postRoutes.delete("/posts/:id", deletePostById);
 
 module.exports = postRoutes;
