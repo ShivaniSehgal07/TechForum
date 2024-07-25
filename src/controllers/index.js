@@ -1,5 +1,19 @@
-const { loginIndex, signupIndex, createUser, loginUser, logoutUser } = require("./authController");
-const { getPost, addPost, getAllPosts } = require("./postController");
+const {
+  loginIndex,
+  signupIndex,
+  createUser,
+  loginUser,
+  logoutUser,
+} = require("./authController");
+const {
+  addPost,
+  addPostIndex,
+  getAllPosts,
+  getPostById,
+  getAllUserPosts,
+  editPostIndex,
+  editPostById,
+} = require("./postController");
 
 module.exports = {
   loginIndex,
@@ -7,7 +21,11 @@ module.exports = {
   createUser,
   loginUser,
   logoutUser,
+  addPostIndex,
   addPost,
-  getPost,
   getAllPosts,
-}
+  getAllUserPosts,
+  getPostById,
+  editPostIndex,
+  editPostById,
+};
