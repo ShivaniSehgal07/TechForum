@@ -27,6 +27,26 @@ async function searchByPost(req, res) {
     }
 }
 
+// async function sortByOldFirst(){
+//     try{
+//         const result = await postModel.find({}).sort({ date: 1});
+
+//         res.render('posts.ejs', { posts: result});
+
+//     } catch (err) {
+//         res.send(`Error while sorting: ${err}`);
+//     }
+// }
+
+// async function sortByNewFirst(){
+//     try {
+//         const result = await postModel.find({}).sort({ date: -1});
+
+//         res.render('posts.ejs', { posts: result});
+//     } catch (err) {
+//         res.send(`Error while sorting: ${err}`);
+//     }
+// }
 
 module.exports= {
     searchByPost
