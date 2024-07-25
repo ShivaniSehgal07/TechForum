@@ -1,0 +1,52 @@
+<%- include('../shared/header'); %>
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+
+      <div class="col-12 mb-5">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Homepage</a></li>
+            <li class="breadcrumb-item"><a href="/posts">Posts</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Post</li>
+          </ol>
+        </nav>
+
+        <h2 class="text-white">Add Post"</h2>
+      </div>
+    </div>
+</header>
+<!-- .site-header -->
+
+<section class="topics-detail-section section-padding" id="topics-detail">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 m-auto">
+        <form action="/add-post" method="POST">
+          <div class="mb-4">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="mb-4">
+            <label for="body" class="form-label">Body</label>
+            <textarea class="form-control" id="body" name="body" rows="10"></textarea>
+          </div>
+          <% if (categories && categories.length > 0) { %>
+            <div class="mb-4">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-select" id="category" aria-label="Category">
+                <% categories.forEach(category => { %>
+                  <option value="<%= category %>" <%= category === "Uncategorized" ? 'selected' : '' %>><%= category %></option>
+                <% }) %>
+              </select>
+            </div>
+          <% } %>
+          <button type="submit" class="btn custom-btn me-2">Add Post</button>
+          <a href="/posts" class="btn custom-btn bg-cancel">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- .topics-detail-section -->
+<%- include('../shared/footer'); %>
