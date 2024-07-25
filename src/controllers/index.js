@@ -13,6 +13,7 @@ const {
   getAllUserPosts,
   editPostIndex,
   editPostById,
+  deletePostById,
 } = require("./postController");
 
 module.exports = {
@@ -28,4 +29,5 @@ module.exports = {
   getPostById,
   editPostIndex,
   editPostById,
+  deletePostById,
 };

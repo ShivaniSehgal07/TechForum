@@ -227,8 +227,23 @@ const deletePostById = async (req, res) => {
   try {
     const post = await postModel.findByIdAndDelete(id);
 
-    if (!post) {}
-  } catch (error) {}
+    if (!post) {
+      res.status(404).send({
+        alertType: "danger",
+        message: "Post can't be deleted or doesn't exists.",
+      });
+      return res.redirect("/posts");
+    }
+    res.send({
+      alertType: "success",
+      message: "Post was successfully deleted.",
+    });
+  } catch (error) {
+    res.status(500).send({
+      alertType: "danger",
+      message: "Post can't be deleted, please try later.",
+    });
+  }
 };
 
 module.exports = {
@@ -239,4 +254,5 @@ module.exports = {
   getPostById,
   editPostIndex,
   editPostById,
+  deletePostById,
 };
