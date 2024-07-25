@@ -3,14 +3,18 @@ const postModel = require('../models/postModel');
 
 async function searchByPost(req, res) {
     try{
-        const { title } = req.query;
-        const errorMsg = "Post with the given title was not found.";
+        const { query } = req.query;
+        const errorMsg = "Post with the title or author was not found.";
     
-        const result = await postModel.find({ 'title' : title });
+        const regex = new RegExp(query, 'i');
+        const result = await postModel.find({ 
+            $or: [
+                { title: { $regex: regex }},
+                { author: { $regex: regex }}
+            ]
+        });
 
-        if (!result) res.send('There was an error in searching');
-
-        if (result.find((value) => value === value.title)){
+        if (result.length > 0){
             res.render('posts.ejs', {posts: result, message: null});
         } else {
             res.render('posts.ejs', {posts: [], message: errorMsg});
@@ -21,17 +25,29 @@ async function searchByPost(req, res) {
     }
 }
 
-async function sortByAuthor(){
-    
+async function sortByOldFirst(){
+    try{
+        const result = await postModel.find({}).sort({ date: 1});
+
+        res.render('posts.ejs', { posts: result});
+
+    } catch (err) {
+        res.send(`Error while sorting: ${err}`);
+    }
 }
 
+async function sortByNewFirst(){
+    try {
+        const result = await postModel.find({}).sort({ date: -1});
 
-async function filterByDate(){
-    
+        res.render('posts.ejs', { posts: result});
+    } catch (err) {
+        res.send(`Error while sorting: ${err}`);
+    }
 }
 
 exports.module= {
     searchByPost,
-    sortByAuthor,
-    filterByDate
+    sortByNewFirst,
+    sortByOldFirst
 }
