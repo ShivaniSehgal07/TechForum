@@ -34,7 +34,7 @@
           <% if (categories && categories.length > 0) { %>
             <div class="mb-4">
               <label for="category" class="form-label">Category</label>
-              <select class="form-select" id="category" aria-label="Category">
+              <select class="form-select" id="category" name="category" aria-label="Category">
                 <% categories.forEach(category => { %>
                   <option value="<%= category %>" <%= category === "Uncategorized" ? 'selected' : '' %>><%= category %></option>
                 <% }) %>

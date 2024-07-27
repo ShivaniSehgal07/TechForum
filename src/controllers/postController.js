@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { APP_NAME, POST_CATEGORIES } = require("../constants");
 const { postModel } = require("../models");
-const { formatDate } = require("../utils");
+const { formatDate, getSortCriteria } = require("../utils");
 
 const isUserLoggedIn = (req) => !!req?.session?.userId;
 const userLoggedInId = (req) => req?.session?.userId;
@@ -36,7 +36,9 @@ const addPost = async (req, res) => {
 
 // Read
 const getAllPosts = async (req, res) => {
+  const { sort } = req.query || {};
   const title = `${APP_NAME}`;
+  const sortCriteria = getSortCriteria(sort);
 
   try {
     const posts = await postModel.aggregate([
@@ -65,10 +67,14 @@ const getAllPosts = async (req, res) => {
           author_avatar: "$authorData.avatar",
         },
       },
+      ...(sort ? [{ $sort: sortCriteria }] : []),
     ]);
     const formattedPosts = posts.map((post) => ({
       ...post,
       date: formatDate(new Date(post.createdAt)),
+      author_avatar: post.author_avatar
+        ? `data:image/jpeg;base64,${post.author_avatar.toString("base64")}`
+        : null,
       userCanEdit: isUserLoggedIn(req) && post.author == userLoggedInId(req),
     }));
     res.render("posts", {
@@ -117,6 +123,9 @@ const getAllUserPosts = async (req, res) => {
     ]);
     const formattedPosts = posts.map((post) => ({
       ...post,
+      author_avatar: post.author_avatar
+        ? `data:image/jpeg;base64,${post.author_avatar.toString("base64")}`
+        : null,
       date: formatDate(new Date(post.createdAt)),
     }));
     res.render("my-posts", {
@@ -204,7 +213,7 @@ const editPostById = async (req, res) => {
   try {
     const post = await postModel.findByIdAndUpdate(
       id,
-      { title, body,category, author },
+      { title, body, category, author },
       { new: true, runValidators: true }
     );
 

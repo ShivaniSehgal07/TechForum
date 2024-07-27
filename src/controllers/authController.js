@@ -17,7 +17,7 @@ const signupIndex = (req, res) => {
 
 const createUser = async (req, res) => {
   const { first_name, last_name, user_name, email, password } = req.body || {};
-  const avatar = req.file ? req.file.buffer : null;
+  const avatar = req?.file?.buffer;
   const hashedPassword = hashPassword(password);
 
   try {
