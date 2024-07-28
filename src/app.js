@@ -25,6 +25,12 @@ app.use(
   })
 );
 
+// Make the user session available to all templates
+app.use((req, res, next) => {
+  res.locals.userId = req.session.userId;
+  next();
+});
+
 app.use(flash());
 
 home(app);
