@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
 
       if (comparePassword(password, userPassword)) {
         req.session.userId = user_name;
-        return res.redirect("/my-posts");
+        return res.redirect("/posts");
       } else {
         req.flash("alert", "Invalid username or password");
         return res.redirect("/auth/login");
