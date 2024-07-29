@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { APP_NAME, POST_CATEGORIES } = require("../constants");
 const { postModel } = require("../models");
 const { formatDate, getSortCriteria } = require("../utils");
-
 const isUserLoggedIn = (req) => !!req?.session?.userId;
 const userLoggedInId = (req) => req?.session?.userId;
 
@@ -39,6 +38,7 @@ const getAllPosts = async (req, res) => {
   const { sort } = req.query || {};
   const title = `${APP_NAME}`;
   const sortCriteria = getSortCriteria(sort);
+  const message = req.flash('alert');
 
   try {
     const posts = await postModel.aggregate([
@@ -80,11 +80,13 @@ const getAllPosts = async (req, res) => {
     res.render("posts", {
       title,
       posts: formattedPosts,
+      message: message.length > 0 ? message[0] : null
     });
   } catch (error) {
     res.render("posts", {
       title,
       posts: [],
+      message: 'An error occurred while fetching posts.'
     });
   }
 };
@@ -258,6 +260,33 @@ const deletePostById = async (req, res) => {
   }
 };
 
+// Search Posts
+const searchByPost = async (req, res) => {
+  try{
+      const { query } = req.query;
+      const errorMsg = "Post with the title or author was not found.";
+  
+      const regex = new RegExp(query, 'i');
+      const result = await postModel.find({ 
+          $or: [
+              { title: { $regex: regex }},
+              { author: { $regex: regex }}
+          ]
+      });
+
+      console.log(result);
+
+      if (result.length > 0){
+          res.render('posts', {title: 'Search result', posts: result, message: null});
+      } else {
+          res.render('posts', {title: 'Search result', posts: [], message: errorMsg});
+      }
+  
+  } catch (err) {
+      res.send(`Error while searching: ${err}`);
+  }
+}
+
 module.exports = {
   addPostIndex,
   addPost,
@@ -267,4 +296,5 @@ module.exports = {
   editPostIndex,
   editPostById,
   deletePostById,
+  searchByPost
 };
