@@ -80,7 +80,6 @@ const logoutUser = (req, res) => {
       return res.redirect("/");
     }
 
-    req.flash("alert", "You are logged out");
     res.redirect("/auth/login");
   });
 };
