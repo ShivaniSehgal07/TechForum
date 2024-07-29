@@ -14,6 +14,7 @@ const {
   editPostIndex,
   editPostById,
   deletePostById,
+  searchByPost
 } = require("./postController");
 
 module.exports = {
@@ -30,4 +31,5 @@ module.exports = {
   editPostIndex,
   editPostById,
   deletePostById,
+  searchByPost
 };

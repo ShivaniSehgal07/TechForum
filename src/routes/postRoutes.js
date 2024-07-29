@@ -8,6 +8,7 @@ const {
   editPostIndex,
   editPostById,
   deletePostById,
+  searchByPost
 } = require("../controllers");
 const { checkAuthMiddleware } = require("../middlewares");
 
@@ -23,5 +24,6 @@ postRoutes.get("/edit-post/:id", checkAuthMiddleware, editPostIndex);
 postRoutes.post("/edit-post", editPostById);
 postRoutes.get("/post", checkAuthMiddleware, addPost);
 postRoutes.delete("/posts/:id", deletePostById);
+postRoutes.get("/searchByPost", searchByPost);
 
 module.exports = postRoutes;

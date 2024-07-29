@@ -23,9 +23,17 @@
     <div class="container">
       <div class="section-alerts"></div>
       <div class="d-flex justify-content-between mb-3">
-        <a href="/add-post" class="btn custom-btn bg-graphic">
+        <a href="/add-post" class="btn custom-btn bg-graphic me-2">
           <i class="bi bi-plus-lg font-weight-semibold"></i> Add Post
         </a>
+
+        <form action="/searchByPost" method="get" class="d-flex align-items-center">
+          <div class="input-group">
+            <input type="text" name="query" class="form-control" placeholder="Search posts by title or author" required>
+            <button type="submit" class="btn custom-btn bg-graphic">Search</button>
+          </div>
+        </form>
+        
         <div class="dropdown">
           <button class="btn custom-btn bg-graphic" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="bi bi-filter me-2"></i>Sort posts by
