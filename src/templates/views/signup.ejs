@@ -6,6 +6,9 @@
       <div class="col-lg-6 col-md-8 col-12">
         <div class="auth-form bg-white shadow-lg p-4">
           <h2 class="text-center mb-4">Sign Up</h2>
+          <% if (alert) { %>
+            <div class="alert alert-danger"><%= alert %></div> <!-- Added line -->
+          <% } %>
           <form action="/auth/signup" method="POST" enctype="multipart/form-data">
             <div class="form-group mb-3">
               <label for="first_name">First Name:</label>

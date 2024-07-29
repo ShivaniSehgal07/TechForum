@@ -9,6 +9,9 @@
           <% if (alert) { %>
             <div class="alert alert-danger"><%= alert %></div>
           <% } %>
+          <% if (success) { %> 
+            <div class="alert alert-success"><%= success %></div> 
+          <% } %>
           <form action="/auth/login" method="POST">
             <div class="form-group mb-3">
               <label for="email">Email:</label>
