@@ -27,11 +27,11 @@
           <i class="bi bi-plus-lg font-weight-semibold"></i> Add Post
         </a>
 
-        <form action="/searchByPost" method="get" class="d-flex align-items-center">
-          <div class="input-group">
-            <input type="text" name="query" class="form-control" placeholder="Search posts by title or author" required>
-            <button type="submit" class="btn custom-btn bg-graphic">Search</button>
-          </div>
+        <form action="/searchByPost" method="get" class="d-flex align-items-center position-relative">
+          <span class="position-absolute search-icon">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" name="query" class="form-control rounded-pill ps-5 me-2" placeholder="Search posts..." required>
         </form>
         
         <div class="dropdown">
@@ -95,3 +95,17 @@
       </div>
     </div>
 <%- include('../shared/footer'); %>
+
+<style>
+  .search-icon {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #aaa;
+  }
+
+  .form-control.ps-5 {
+    padding-left: 2.5rem;
+  }
+</style>
