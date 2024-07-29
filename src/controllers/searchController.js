@@ -17,36 +17,15 @@ async function searchByPost(req, res) {
         console.log(result);
 
         if (result.length > 0){
-            res.render('posts', {title: 'result', posts: result, message: null});
+            res.render('posts', {title: 'Search result', posts: result, message: null});
         } else {
-            res.render('posts', {title: 'result', posts: [], message: errorMsg});
+            res.render('posts', {title: 'Search result', posts: [], message: errorMsg});
         }
     
     } catch (err) {
         res.send(`Error while searching: ${err}`);
     }
 }
-
-// async function sortByOldFirst(){
-//     try{
-//         const result = await postModel.find({}).sort({ date: 1});
-
-//         res.render('posts.ejs', { posts: result});
-
-//     } catch (err) {
-//         res.send(`Error while sorting: ${err}`);
-//     }
-// }
-
-// async function sortByNewFirst(){
-//     try {
-//         const result = await postModel.find({}).sort({ date: -1});
-
-//         res.render('posts.ejs', { posts: result});
-//     } catch (err) {
-//         res.send(`Error while sorting: ${err}`);
-//     }
-// }
 
 module.exports= {
     searchByPost
