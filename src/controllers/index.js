@@ -4,6 +4,7 @@ const {
   createUser,
   loginUser,
   logoutUser,
+  profile,
 } = require("./authController");
 const {
   addPost,
@@ -22,6 +23,7 @@ module.exports = {
   createUser,
   loginUser,
   logoutUser,
+  profile,
   addPostIndex,
   addPost,
   getAllPosts,
