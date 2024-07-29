@@ -5,14 +5,19 @@ const { hashPassword, comparePassword } = require("../utils");
 const loginIndex = (req, res) => {
   const title = `${APP_NAME} - Login`;
   const alertMessages = req.flash("alert");
+  const successMessages = req.flash("success");
   const alert = alertMessages.length > 0 ? alertMessages[0] : null;
+  const success = successMessages.length > 0 ? successMessages[0] : null;
 
-  res.render("login", { title, alert });
+  res.render("login", { title, alert,success});
 };
 
 const signupIndex = (req, res) => {
   const title = `${APP_NAME} - Sign Up`;
-  res.render("signup", { title });
+  const alertMessages = req.flash("alert");
+  const alert = alertMessages.length > 0 ? alertMessages[0] : null;
+
+  res.render("signup", { title, alert });
 };
 
 const createUser = async (req, res) => {
@@ -31,10 +36,14 @@ const createUser = async (req, res) => {
     });
 
     await user.save();
-    req.flash("alert", `User ${user_name} successfully signed up.`);
+    req.flash("success", `User ${user_name} successfully signed up.`);
     res.redirect("/auth/login");
   } catch (error) {
+    if (error.code === 11000) {
+      req.flash("alert", `Username "${user_name}" is already taken. Please choose another one.`); 
+    } else {
     req.flash("alert", error.message);
+    }
     res.redirect("/auth/signup");
   }
 };
