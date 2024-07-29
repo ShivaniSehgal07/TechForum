@@ -3,7 +3,7 @@ const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
 require("./db/mongoose");
-const { authRoutes, home, postRoutes } = require("./routes");
+const { authRoutes, postRoutes, homeRoute } = require("./routes");
 
 const app = express();
 const viewsPath = path.join(__dirname, "./templates/views");
@@ -25,15 +25,15 @@ app.use(
   })
 );
 
+app.use(flash());
+
 // Make the user session available to all templates
 app.use((req, res, next) => {
   res.locals.userId = req.session.userId;
   next();
 });
 
-app.use(flash());
-
-home(app);
+app.use(homeRoute);
 app.use(postRoutes);
 app.use(authRoutes);
 
