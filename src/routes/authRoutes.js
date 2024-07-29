@@ -1,4 +1,5 @@
 const express = require("express");
+<<<<<<< Updated upstream
 const userModel = require("../models/userModel");
 const postModel = require("../models/postModel");
 const passport = require("passport");
@@ -92,5 +93,18 @@ authRoutes.get("/auth/profile", async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+=======
+const { loginIndex, signupIndex, createUser, loginUser, logoutUser, profile } = require("../controllers");
+const { uploadMiddleware } = require("../middlewares");
+
+const authRoutes = new express.Router();
+
+authRoutes.get("/auth/login", loginIndex);
+authRoutes.get("/auth/signup", signupIndex);
+authRoutes.post("/auth/signup", uploadMiddleware, createUser);
+authRoutes.post("/auth/login", loginUser);
+authRoutes.get("/auth/logout", logoutUser);
+authRoutes.get("/auth/profile", profile);
+>>>>>>> Stashed changes
 
 module.exports = authRoutes;
