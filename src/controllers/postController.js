@@ -173,13 +173,16 @@ const getPostById = async (req, res) => {
       },
     },
   ]);
-  const { createdAt, ...postRest } = posts[0];
+  const { createdAt, author_avatar, ...postRest } = posts[0];
 
   res.render("post", {
     title,
     editMode,
     post: {
       ...postRest,
+      author_avatar: author_avatar
+        ? `data:image/jpeg;base64,${author_avatar.toString("base64")}`
+        : null,
       date: formatDate(new Date(createdAt)),
     },
   });
