@@ -3,7 +3,7 @@ const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
 require("./db/mongoose");
-const { authRoutes, postRoutes, homeRoute } = require("./routes");
+const { authRoutes, postRoutes, homeRoutes } = require("./routes");
 
 const app = express();
 const viewsPath = path.join(__dirname, "./templates/views");
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(homeRoute);
+app.use(homeRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
 
