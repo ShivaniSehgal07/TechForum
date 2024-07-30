@@ -4,7 +4,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 require("./db/mongoose");
-const { authRoutes, home, postRoutes } = require("./routes");
+const { authRoutes, postRoutes, homeRoutes } = require("./routes");
 
 const app = express();
 const viewsPath = path.join(__dirname, "./templates/views");
@@ -45,14 +45,13 @@ app.use((req, res, next) => {
   next();
 });
 
-
+app.use(homeRoutes);
 
 app.get("/show-flash", (req, res) => {
   const successMessages = req.flash("success");
   res.send(`Success Messages: ${successMessages}`);
 });
 
-home(app);
 app.use(postRoutes);
 app.use(authRoutes);
 

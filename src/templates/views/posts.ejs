@@ -31,7 +31,7 @@
           <span class="position-absolute search-icon">
             <i class="bi bi-search"></i>
           </span>
-          <input type="text" name="query" class="form-control rounded-pill ps-5 me-2" placeholder="Search posts..." required>
+          <input type="text" name="query" class="form-control rounded-pill ps-5 me-2 pt-2 pb-2" placeholder="Search posts..." value="<%= typeof query !== 'undefined' ? query : '' %>">
         </form>
         
         <div class="dropdown">

@@ -412,6 +412,30 @@
     left: 2px;
     border: 0;
   }
+
+  .card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+
+  .card-img-top {
+    border-radius: 50%;
+  }
   
   @media screen and (min-width: 992px) {
     .navbar .dropdown:hover .dropdown-menu {
