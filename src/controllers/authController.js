@@ -1,5 +1,5 @@
 const { APP_NAME } = require("../constants");
-const { userModel } = require("../models");
+const { userModel, postModel } = require("../models");
 const { hashPassword, comparePassword } = require("../utils");
 
 const loginIndex = (req, res) => {
@@ -9,7 +9,7 @@ const loginIndex = (req, res) => {
   const alert = alertMessages.length > 0 ? alertMessages[0] : null;
   const success = successMessages.length > 0 ? successMessages[0] : null;
 
-  res.render("login", { title, alert,success});
+  res.render("login", { title, alert, success });
 };
 
 const signupIndex = (req, res) => {
@@ -40,9 +40,12 @@ const createUser = async (req, res) => {
     res.redirect("/auth/login");
   } catch (error) {
     if (error.code === 11000) {
-      req.flash("alert", `Username "${user_name}" is already taken. Please choose another one.`); 
+      req.flash(
+        "alert",
+        `Username "${user_name}" is already taken. Please choose another one.`
+      );
     } else {
-    req.flash("alert", error.message);
+      req.flash("alert", error.message);
     }
     res.redirect("/auth/signup");
   }
@@ -75,12 +78,9 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-  // Store the flash message in a temporary variable
   const successMessage = "You are logged out";
 
-  // Set the flash message in a cookie
-  res.cookie('flashMessage', successMessage, { maxAge: 1000 });
-
+  res.cookie("flashMessage", successMessage, { maxAge: 1000 });
   req.session.destroy((error) => {
     if (error) {
       return res.redirect("/");
@@ -90,46 +90,35 @@ const logoutUser = (req, res) => {
   });
 };
 
-
-
-
 const profile = async (req, res) => {
   try {
-  
     const userName = req.session.userId;
-    console.log("Profile route accessed");
-  
-    console.log("Searching for user with user_name:", userName);
     const user = await userModel.findOne({ user_name: userName });
     const profileImage = user.avatar
       ? `data:image/jpeg;base64,${user.avatar.toString("base64")}`
       : null;
     user.avatar = profileImage;
-    console.log("User found:", user);
 
     if (user) {
-      const postModel = require("../models/postModel");
-      // Count total posts by user
-      const totalPosts = await postModel.countDocuments({ author: user.user_name });
-
-      // Find the latest post by user
-      const latestPost = await postModel.findOne({ author: user.user_name }).sort({ createdAt: -1 });
-
-      console.log("Total Posts:", totalPosts);
-      console.log("Latest Post:", latestPost);
-      res.render('profile', { 
-        title: "Profile", 
+      const totalPosts = await postModel.countDocuments({
+        author: user.user_name,
+      });
+      const latestPost = await postModel
+        .findOne({ author: user.user_name })
+        .sort({ createdAt: -1 });
+      res.render("profile", {
+        title: "Profile",
         user: user,
         totalPosts: totalPosts,
-        latestPost: latestPost
+        latestPost: latestPost,
       });
     } else {
-      console.log("No user found");
-      res.status(404).send('No user found');
+      req.flash("alert", "User not found");
+      return res.redirect("/auth/login");
     }
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Internal Server Error');
+    req.flash("alert", "An error occurred. Please try again.");
+    return res.redirect("/auth/login");
   }
 };
 

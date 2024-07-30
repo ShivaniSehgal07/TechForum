@@ -7,6 +7,12 @@ const {
   profile,
 } = require("./authController");
 const {
+  getHome,
+  getAboutUs,
+  getContactUs,
+  getUnknownRoute,
+} = require("./generalController");
+const {
   addPost,
   addPostIndex,
   getAllPosts,
@@ -25,6 +31,10 @@ module.exports = {
   loginUser,
   logoutUser,
   profile,
+  getHome,
+  getAboutUs,
+  getContactUs,
+  getUnknownRoute,
   addPostIndex,
   addPost,
   getAllPosts,
