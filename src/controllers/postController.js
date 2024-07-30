@@ -267,19 +267,57 @@ const searchByPost = async (req, res) => {
       const errorMsg = "Post with the title or author was not found.";
   
       const regex = new RegExp(query, 'i');
-      const result = await postModel.find({ 
-          $or: [
+      const result = await postModel.aggregate([
+        {
+          $match: {
+            $or: [
               { title: { $regex: regex }},
               { author: { $regex: regex }}
-          ]
-      });
+            ]
+          }
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'author',
+            foreignField: 'user_name',
+            as: 'authorData'
+          }
+        },
+        {
+          $unwind: {
+            path: '$authorData',
+            preserveNullAndEmptyArrays: true // In case some posts don't have corresponding author data
+          }
+        },
+        {
+          $project: {
+            title: 1,
+            body: 1,
+            category: 1,
+            author: 1,
+            createdAt: 1,
+            updatedAt: 1,
+            author_name: {
+              $concat: ['$authorData.first_name', ' ', '$authorData.last_name']
+            },
+            author_avatar: '$authorData.avatar'
+          }
+        }
+      ]);
 
-      console.log(result);
+      const formattedPosts = result.map((post) => ({
+        ...post,
+        author_avatar: post.author_avatar
+          ? `data:image/jpeg;base64,${post.author_avatar.toString("base64")}`
+          : null,
+        date: formatDate(new Date(post.createdAt)),
+      }));
 
       if (result.length > 0){
-          res.render('posts', {title: 'Search result', posts: result, message: null});
+          res.render('posts', {title: 'Search result', posts: formattedPosts, message: null, query});
       } else {
-          res.render('posts', {title: 'Search result', posts: [], message: errorMsg});
+          res.render('posts', {title: 'Search result', posts: [], message: errorMsg, query});
       }
   
   } catch (err) {
