@@ -17,13 +17,13 @@ const postRoutes = new express.Router();
 // Views
 postRoutes.get("/add-post", checkAuthMiddleware, addPostIndex);
 postRoutes.post("/add-post", addPost);
-postRoutes.get("/posts", getAllPosts);
+postRoutes.get("/posts", checkAuthMiddleware, getAllPosts);
 postRoutes.get("/my-posts", checkAuthMiddleware, getAllUserPosts);
-postRoutes.get("/post/:id", getPostById);
+postRoutes.get("/post/:id", checkAuthMiddleware, getPostById);
 postRoutes.get("/edit-post/:id", checkAuthMiddleware, editPostIndex);
 postRoutes.post("/edit-post", editPostById);
 postRoutes.get("/post", checkAuthMiddleware, addPost);
 postRoutes.delete("/posts/:id", deletePostById);
-postRoutes.get("/searchByPost", searchByPost);
+postRoutes.get("/searchByPost", checkAuthMiddleware, searchByPost);
 
 module.exports = postRoutes;
