@@ -4,7 +4,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 require("./db/mongoose");
-const { authRoutes, postRoutes, homeRoutes } = require("./routes");
+const { authRoutes, generalRoutes, postRoutes } = require("./routes");
 
 const app = express();
 const viewsPath = path.join(__dirname, "./templates/views");
@@ -30,7 +30,6 @@ app.use(
 
 app.use(flash());
 
-// Middleware to set flash message from cookie
 app.use((req, res, next) => {
   if (req.cookies.flashMessage) {
     req.flash('success', req.cookies.flashMessage);
@@ -39,20 +38,18 @@ app.use((req, res, next) => {
   next();
 });
 
-// Make the user session available to all templates
 app.use((req, res, next) => {
   res.locals.userId = req.session.userId;
   next();
 });
-
-app.use(homeRoutes);
 
 app.get("/show-flash", (req, res) => {
   const successMessages = req.flash("success");
   res.send(`Success Messages: ${successMessages}`);
 });
 
-app.use(postRoutes);
 app.use(authRoutes);
+app.use(postRoutes);
+app.use(generalRoutes);
 
 module.exports = app;
