@@ -75,6 +75,12 @@ const loginUser = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
+  // Store the flash message in a temporary variable
+  const successMessage = "You are logged out";
+
+  // Set the flash message in a cookie
+  res.cookie('flashMessage', successMessage, { maxAge: 1000 });
+
   req.session.destroy((error) => {
     if (error) {
       return res.redirect("/");
@@ -83,6 +89,9 @@ const logoutUser = (req, res) => {
     res.redirect("/auth/login");
   });
 };
+
+
+
 
 const profile = async (req, res) => {
   try {
